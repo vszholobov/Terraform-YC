@@ -6,15 +6,12 @@
     {
       "type":      "yandex",
       "token":     "{{user `yc_token`}}",
-      "folder_id": "b1guq3aif7jnbi3gfdg9",
-      "zone":      "ru-central1-b",
+      "folder_id": "b1gnu9b6p56oc5bvj3ji",
 
       "source_image_family": "ubuntu-24-04-lts",
       "image_name":        "ubuntu-24-04-lts-nginx-{{isotime | clean_resource_name}}",
       "image_family":      "ubuntu-web-server",
       "image_description": "my custom ubuntu with nginx",
-
-      "subnet_id":           "e2lbog9c94san54g1c4f",
       "use_ipv4_nat":        true,
       "disk_type":           "network-ssd",
       "ssh_username":        "ubuntu"

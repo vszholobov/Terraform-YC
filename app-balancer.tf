@@ -1,7 +1,7 @@
 # yandex_alb_load_balancer.test-ab:
-resource "yandex_alb_load_balancer" "test-ab" {
+resource "yandex_alb_load_balancer" "terraform-application-balancer" {
   labels             = {}
-  name               = "test-ab"
+  name               = "terraform-application-balancer"
   network_id         = yandex_vpc_network.terraform-network.id
   region_id          = "ru-central1"
   security_group_ids = []
@@ -44,7 +44,12 @@ resource "yandex_alb_load_balancer" "test-ab" {
 
   log_options {
     disable = false
+    log_group_id = yandex_logging_group.terraform-application-balancer-log-group.id
   }
+}
+
+resource "yandex_logging_group" "terraform-application-balancer-log-group" {
+  name = "terraform-application-balancer-log-group"
 }
 
 # yandex_alb_http_router.test-ab:
