@@ -13,8 +13,8 @@ resource "yandex_compute_instance" "terraform-vm-ru-central-a" {
   }
 
   network_interface {
+    # nat отключен. Публичного ip нет, можно достучаться только через балансировщик
     subnet_id = yandex_vpc_subnet.terraform-network-central1-a.id
-    nat       = true # public ip
   }
 
   metadata = {
