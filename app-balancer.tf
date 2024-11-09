@@ -2,20 +2,20 @@
 resource "yandex_alb_load_balancer" "test-ab" {
   labels             = {}
   name               = "test-ab"
-  network_id         = "enpv5g92seb66n54ncj7"
+  network_id         = yandex_vpc_network.terraform-network.id
   region_id          = "ru-central1"
   security_group_ids = []
 
   allocation_policy {
     location {
       disable_traffic = false
-      subnet_id       = "e2lbog9c94san54g1c4f"
-      zone_id         = "ru-central1-b"
+      subnet_id       = yandex_vpc_subnet.terraform-network-central1-a.id
+      zone_id         = "ru-central1-a"
     }
     location {
       disable_traffic = false
-      subnet_id       = "e9bcj7nroloj0a747sv8"
-      zone_id         = "ru-central1-a"
+      subnet_id       = yandex_vpc_subnet.terraform-network-central1-b.id
+      zone_id         = "ru-central1-b"
     }
   }
 
@@ -114,7 +114,7 @@ resource "yandex_alb_target_group" "central1-a" {
   target {
     ip_address           = yandex_compute_instance.terraform-vm-ru-central-a.network_interface.0.ip_address
     private_ipv4_address = false
-    subnet_id            = "e9bcj7nroloj0a747sv8"
+    subnet_id            = yandex_vpc_subnet.terraform-network-central1-a.id
   }
 }
 
@@ -126,6 +126,6 @@ resource "yandex_alb_target_group" "central1-b" {
   target {
     ip_address           = yandex_compute_instance.terraform-vm-ru-central-b.network_interface.0.ip_address
     private_ipv4_address = false
-    subnet_id            = "e2lbog9c94san54g1c4f"
+    subnet_id            = yandex_vpc_subnet.terraform-network-central1-b.id
   }
 }

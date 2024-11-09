@@ -37,12 +37,12 @@ resource "yandex_lb_target_group" "terraform-lb-group" {
   name = "terraform-lb-group"
 
   target {
-    subnet_id = data.yandex_vpc_subnet.vszholobov-ru-central1-a.id
+    subnet_id = yandex_vpc_subnet.terraform-network-central1-a.id
     address = yandex_compute_instance.terraform-vm-ru-central-a.network_interface[0].ip_address
   }
 
   target {
-    subnet_id = data.yandex_vpc_subnet.vszholobov-ru-central1-b.id
+    subnet_id = yandex_vpc_subnet.terraform-network-central1-b.id
     address = yandex_compute_instance.terraform-vm-ru-central-b.network_interface[0].ip_address
   }
 }
