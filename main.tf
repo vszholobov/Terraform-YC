@@ -9,7 +9,8 @@ terraform {
 }
 
 provider "yandex" {
-  service_account_key_file = "/Users/vszholobov/Desktop/yandex-cloud/terraform-terraform-key.json" # service-account
+  # YC_SERVICE_ACCOUNT_KEY_FILE
+  # service_account_key_file = "/Users/vszholobov/Desktop/yandex-cloud/terraform-terraform-key.json" # service-account
   folder_id = local.folder_id
   cloud_id = local.cloud_id
 }
