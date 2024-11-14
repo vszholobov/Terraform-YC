@@ -8,6 +8,9 @@
 
 
 ## Полезные команды
+### Packer сборка проекта
+```packer build -var 'folder_id=b1gnu9b6p56oc5bvj3ji' packer.json```
+
 ### Получение ключа для сервисного аккаунта
 ```yc iam key create --service-account-id <account_id> --folder-name <folder_name> --output <...-key.json>```
 

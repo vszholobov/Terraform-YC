@@ -1,12 +1,13 @@
 {
   "variables": {
-    "yc_token": "{{env `YC_TOKEN`}}"
+    "yc_token": "{{env `YC_TOKEN`}}",
+    "folder_id": ""
   },
   "builders": [
     {
       "type":      "yandex",
       "token":     "{{user `yc_token`}}",
-      "folder_id": "b1gnu9b6p56oc5bvj3ji",
+      "folder_id": "{{user `folder_id`}}",
 
       "source_image_family": "ubuntu-24-04-lts",
       "image_name":        "ubuntu-24-04-lts-nginx-{{isotime | clean_resource_name}}",
