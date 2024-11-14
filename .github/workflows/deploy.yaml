@@ -5,7 +5,9 @@ on:
   pull_request:
     branches:
       - "main"
-
+  push:
+    branches:
+      - "main"
 env:
   YC_SERVICE_ACCOUNT_KEY_FILE: ${{ secrets.YC_SERVICE_ACCOUNT_KEY_FILE }}
 
