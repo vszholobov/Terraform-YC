@@ -15,8 +15,14 @@ provider "yandex" {
   cloud_id = local.cloud_id
 }
 
+variable "ssh_key" {
+  type = string
+  sensitive = true
+}
+
 locals {
   compute_base_image_id = "fd8s6jrcg1vicej7v6ib" # image with nginx built by packer
   folder_id = "b1gnu9b6p56oc5bvj3ji" # terraform folder
   cloud_id = "b1gejt95t76oqne38ffb" # terraform cloud
+  ssh_key = var.ssh_key
 }

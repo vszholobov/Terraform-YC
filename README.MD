@@ -28,5 +28,8 @@
 ### Получение тикета Yandex Cloud
 ```export YC_TOKEN=$(yc iam create-token)```
 
+### SSH ключ
+```export TF_VAR_ssh_key='$'```
+
 ### Получение логов nginx
 ```sudo cat /var/log/nginx/access.log```

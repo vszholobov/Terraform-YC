@@ -17,10 +17,10 @@ resource "yandex_compute_instance" "terraform-vm-ru-central-a" {
     subnet_id = yandex_vpc_subnet.terraform-network-central1-a.id
   }
 
-  # metadata = {
-  #   ssh-keys = file("~/.ssh/id_ed25519.pub")
-  #   user-data = templatefile("${path.module}/meta_user.txt", { ssh-key = file("~/.ssh/id_ed25519.pub")})
-  # }
+  metadata = {
+    ssh-keys = local.ssh_key
+    user-data = templatefile("${path.module}/meta_user.txt", { ssh-key = local.ssh_key})
+  }
 }
 
 resource "yandex_compute_instance" "terraform-vm-ru-central-b" {
@@ -42,10 +42,10 @@ resource "yandex_compute_instance" "terraform-vm-ru-central-b" {
     nat       = true # public ip
   }
 
-  # metadata = {
-  #   ssh-keys = file("~/.ssh/id_ed25519.pub")
-  #   user-data = templatefile("${path.module}/meta_user.txt", { ssh-key = file("~/.ssh/id_ed25519.pub")})
-  # }
+  metadata = {
+    ssh-keys = local.ssh_key
+    user-data = templatefile("${path.module}/meta_user.txt", { ssh-key = local.ssh_key})
+  }
 }
 
 resource "yandex_compute_disk" "boot-disk-ru-central-a" {
