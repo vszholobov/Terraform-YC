@@ -7,6 +7,9 @@
 5. Запустить terraform
 
 ## Полезные команды
+### Инициализация с ключами для s3
+```terraform init -backend-config="access_key=$ACCESS_KEY" -backend-config="secret_key=$SECRET_KEY"```
+
 ### Packer сборка проекта
 ```packer build -var 'folder_id=b1gnu9b6p56oc5bvj3ji' packer.json```
 

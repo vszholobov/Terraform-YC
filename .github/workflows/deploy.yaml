@@ -10,6 +10,9 @@ on:
       - "main"
 env:
   YC_SERVICE_ACCOUNT_KEY_FILE: ${{ secrets.YC_SERVICE_ACCOUNT_KEY_FILE }}
+  ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
+  SECRET_KEY: ${{ secrets.SECRET_KEY }}
+  TF_VAR_ssh_key: ${{ secrets.TF_VAR_SSH_KEY }}
 
 jobs:
   build-infra:
@@ -22,7 +25,7 @@ jobs:
         uses: hashicorp/setup-terraform@v2
       - name: Terraform Init
         id: init
-        run: terraform init
+        run: terraform init -backend-config="access_key=$ACCESS_KEY" -backend-config="secret_key=$SECRET_KEY"
         working-directory: ./
       - name: Terraform Validate
         id: validate

@@ -5,12 +5,24 @@ terraform {
     }
   }
   required_version = ">= 0.13"
-  backend "local" { path = "./terraform-state/terraform.tfstate" }
+
+  backend "s3" {
+    endpoints = {
+      s3 = "https://storage.yandexcloud.net"
+    }
+    bucket = "vszholobov-terraform-state-storage"
+    region = "ru-central1-a"
+    key    = "terraform-state/terraform.tfstate"
+
+    skip_region_validation      = true
+    skip_credentials_validation = true
+    skip_requesting_account_id  = true # необходимая опция при описании бэкенда для Terraform версии 1.6.1 и старше.
+    skip_s3_checksum            = true # необходимая опция при описании бэкенда для Terraform версии 1.6.3 и старше.
+
+  }
 }
 
 provider "yandex" {
-  # YC_SERVICE_ACCOUNT_KEY_FILE
-  # service_account_key_file = "/Users/vszholobov/Desktop/yandex-cloud/terraform-terraform-key.json" # service-account
   folder_id = local.folder_id
   cloud_id = local.cloud_id
 }
