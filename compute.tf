@@ -56,14 +56,6 @@ resource "yandex_compute_disk" "boot-disk-ru-central-a" {
   image_id = local.compute_base_image_id # custom ubuntu 24-04 nginx
 }
 
-resource "yandex_compute_disk" "boot-disk-ru-central-a-test" {
-  name     = "boot-disk-ru-central-a-test"
-  type     = "network-ssd"
-  size     = "50"
-  zone = yandex_vpc_subnet.terraform-network-central1-a.zone
-  image_id = local.compute_base_image_id # custom ubuntu 24-04 nginx
-}
-
 resource "yandex_compute_disk" "boot-disk-ru-central-b" {
   name     = "terraform-disk-2"
   type     = "network-ssd"
