@@ -6,7 +6,6 @@
 4. Собрать packer'ом образ под новые виртуалки
 5. Запустить terraform
 
-
 ## Полезные команды
 ### Packer сборка проекта
 ```packer build -var 'folder_id=b1gnu9b6p56oc5bvj3ji' packer.json```
