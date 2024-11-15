@@ -35,6 +35,7 @@ variable "ssh_key" {
 
 locals {
   compute_base_image_id = "fd8s6jrcg1vicej7v6ib" # image with nginx built by packer
+  terraform_account_id = "aje9m24r267qloa1ogjh"
   folder_id = "b1gnu9b6p56oc5bvj3ji" # terraform folder yandex cloud id
   cloud_id = "b1gejt95t76oqne38ffb" # terraform cloud yandex cloud id
   ssh_key = var.ssh_key
