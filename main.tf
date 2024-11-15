@@ -16,8 +16,8 @@ terraform {
 
     skip_region_validation      = true
     skip_credentials_validation = true
-    skip_requesting_account_id  = true # необходимая опция при описании бэкенда для Terraform версии 1.6.1 и старше.
-    skip_s3_checksum            = true # необходимая опция при описании бэкенда для Terraform версии 1.6.3 и старше.
+    skip_requesting_account_id  = true # a necessary option when describing the backend for Terraform version 1.6.1 and older.
+    skip_s3_checksum            = true # a necessary option when describing the backend for Terraform version 1.6.3 and older.
 
   }
 }
@@ -30,11 +30,12 @@ provider "yandex" {
 variable "ssh_key" {
   type = string
   sensitive = true
+  description = "Public SSH key for connecting to virtual machines"
 }
 
 locals {
   compute_base_image_id = "fd8s6jrcg1vicej7v6ib" # image with nginx built by packer
-  folder_id = "b1gnu9b6p56oc5bvj3ji" # terraform folder
-  cloud_id = "b1gejt95t76oqne38ffb" # terraform cloud
+  folder_id = "b1gnu9b6p56oc5bvj3ji" # terraform folder yandex cloud id
+  cloud_id = "b1gejt95t76oqne38ffb" # terraform cloud yandex cloud id
   ssh_key = var.ssh_key
 }

@@ -1,38 +1,35 @@
 # Terraform Demo
-## Последовательность
-1. Создать облако
-2. Создать сервисный аккаунт с правами "admin" на каталог
-3. Выбить ключ под новый сервисный аккаунт и заменить в main.tf путь до нового ключа
-4. Собрать packer'ом образ под новые виртуалки
-5. Запустить terraform
 
-## Полезные команды
-### Инициализация с ключами для s3
+## Local Setup
+1. Set env variable YC_TOKEN ```export YC_TOKEN=$(yc iam create-token)```
+2. Set env variable TF_VAR_ssh_key ```export TF_VAR_ssh_key='your public ssh key'```
+3. Set env variables ACCESS_KEY and SECRET_KEY by instruction: https://yandex.cloud/ru/docs/tutorials/infrastructure-management/terraform-state-storage#set-up-backend
+4. Init terraform ```terraform init -backend-config="access_key=$ACCESS_KEY" -backend-config="secret_key=$SECRET_KEY"```
+
+## Useful commands
+### Initialization with specified S3 keys
 ```terraform init -backend-config="access_key=$ACCESS_KEY" -backend-config="secret_key=$SECRET_KEY"```
 
-### Packer сборка проекта
+### Packer image build
 ```packer build -var 'folder_id=b1gnu9b6p56oc5bvj3ji' packer.json```
 
-### Получение ключа для сервисного аккаунта
+### Getting service account key
 ```yc iam key create --service-account-id <account_id> --folder-name <folder_name> --output <...-key.json>```
 
-### Создание только сетей и подсетей
+### Create networks and subnets
 ```terraform apply -target=yandex_vpc_network.terraform-network -target=yandex_vpc_subnet.terraform-network-central1-a -target=yandex_vpc_subnet.terraform-network-central1-b```
 
-### Подстановка в packer output из terraform
-```packer build -var network=$(terraform output network_uuid) template.json```
-
-### Получение списка самодельных образов
+### Getting a list of custom images
 ```yc compute image list```
 
-### Получение списка стандартных образов
+### Getting a list of standard images
 ```yc compute image list --folder-id standard-images```
 
-### Получение тикета Yandex Cloud
+### Getting Yandex Cloud token
 ```export YC_TOKEN=$(yc iam create-token)```
 
-### SSH ключ
-```export TF_VAR_ssh_key='$'```
+### Terraform ssh env variable
+```export TF_VAR_ssh_key='your public ssh key'```
 
-### Получение логов nginx
+### Getting nginx logs
 ```sudo cat /var/log/nginx/access.log```
