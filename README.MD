@@ -1,5 +1,12 @@
 # Terraform Demo
 
+## Topics
+1. Packer
+2. Terraform modules
+3. Terraform S3 state storage
+4. Terraform CI/CD
+5. Terraform data and resource
+
 ## Local Setup
 1. Set env variable YC_TOKEN ```export YC_TOKEN=$(yc iam create-token)```
 2. Set env variable TF_VAR_ssh_key ```export TF_VAR_ssh_key='your public ssh key'```
