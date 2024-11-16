@@ -7,6 +7,9 @@
 4. Init terraform ```terraform init -backend-config="access_key=$ACCESS_KEY" -backend-config="secret_key=$SECRET_KEY"```
 
 ## Useful commands
+### Local launch setup
+```source local.bash```
+
 ### Initialization with specified S3 keys
 ```terraform init -backend-config="access_key=$ACCESS_KEY" -backend-config="secret_key=$SECRET_KEY"```
 
