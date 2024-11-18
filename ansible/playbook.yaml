@@ -1,0 +1,87 @@
+---
+- name: Update Nginx configuration and index.html on Ubuntu
+  hosts: web_servers
+  become: true
+  tasks:
+    - name: Ensure Nginx is installed
+      apt:
+        name: nginx
+        state: present
+        update_cache: true
+
+#    - name: Backup current Nginx default config
+#      copy:
+#        src: /etc/nginx/sites-available/default
+#        dest: /etc/nginx/sites-available/default.bak
+#        remote_src: yes
+#        owner: root
+#        group: root
+#        mode: '0644'
+
+    - name: Update Nginx default config
+      copy:
+        dest: /etc/nginx/sites-available/default
+        content: |
+          server {
+              listen 80 default_server;
+              listen [::]:80 default_server;
+
+              server_name _;
+              root /var/www/html;
+
+              index index.html index.htm;
+
+              location / {
+                  try_files $uri $uri/ =404;
+              }
+          }
+        owner: terraform
+        mode: '0644'
+#        group: root
+
+    - name: Get the primary IP address of the server
+      set_fact:
+        server_ip: "{{ ansible_default_ipv4.address }}"
+
+    - name: Get the public IP address of the server
+      uri:
+        url: https://api.ipify.org
+        return_content: yes
+      register: public_ip_response
+
+    - name: Set public IP as a fact
+      set_fact:
+        server_public_ip: "{{ public_ip_response.content }}"
+
+    - name: Update index.html with server IP
+      copy:
+        dest: /var/www/html/index.html
+        content: |
+          <html>
+          <head>
+              <title>Welcome to Nginx!</title>
+          </head>
+          <body>
+              <h1>Welcome to Nginx!</h1>
+              <p>Server public IP address is: {{ server_public_ip }}</p>
+              <p>Server IP address is: {{ server_ip }}</p>
+          </body>
+          </html>
+        owner: www-data
+        group: www-data
+        mode: '0644'
+
+    - name: Test Nginx configuration
+      command: nginx -t
+      register: nginx_test_result
+      ignore_errors: true
+
+    - name: Fail if Nginx configuration test fails
+      fail:
+        msg: "Nginx configuration test failed. Check the configuration."
+      when: nginx_test_result.rc != 0
+
+    - name: Reload Nginx service
+      service:
+        name: nginx
+        state: reloaded

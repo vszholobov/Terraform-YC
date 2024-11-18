@@ -1,4 +1,4 @@
-# Terraform Demo
+# Terraform and Ansible Demo
 
 ## Topics
 1. Packer
@@ -17,7 +17,7 @@
 ### Local launch setup
 ```source local.bash```
 
-### Initialization with specified S3 keys
+### Terraform initialization with specified S3 keys
 ```terraform init -backend-config="access_key=$ACCESS_KEY" -backend-config="secret_key=$SECRET_KEY"```
 
 ### Generating ssh-key with specified user
@@ -46,3 +46,6 @@
 
 ### Getting nginx logs
 ```sudo cat /var/log/nginx/access.log```
+
+### Ansible initialization
+```ansible-playbook -i inventory.ini playbook.yaml```
