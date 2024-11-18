@@ -12,6 +12,7 @@
 2. Set env variable TF_VAR_ssh_key ```export TF_VAR_ssh_key='your public ssh key'```
 3. Set env variables ACCESS_KEY and SECRET_KEY by instruction: https://yandex.cloud/ru/docs/tutorials/infrastructure-management/terraform-state-storage#set-up-backend
 4. Init terraform ```terraform init -backend-config="access_key=$ACCESS_KEY" -backend-config="secret_key=$SECRET_KEY"```
+5. Use curl or ! In browser update page with clearing cookies to actually see different hosts
 
 ## Useful commands
 ### Local launch setup

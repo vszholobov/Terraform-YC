@@ -1,3 +1,6 @@
+# in browser update page with clearing cookies to actually see different hosts
+# or use curl
+
 # yandex_alb_load_balancer.test-ab:
 resource "yandex_alb_load_balancer" "terraform-application-balancer" {
   labels             = {}
