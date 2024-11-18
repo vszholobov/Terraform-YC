@@ -1,7 +1,6 @@
 resource "yandex_compute_instance" "terraform-vm-ru-central-a" {
   name = "terraform-vm-ru-central-a"
   zone = yandex_vpc_subnet.terraform-network-central1-a.zone
-  # service_account_id = yandex_iam_service_account.registry-sa.id
 
   resources {
     cores  = 2
@@ -13,8 +12,8 @@ resource "yandex_compute_instance" "terraform-vm-ru-central-a" {
   }
 
   network_interface {
-    # nat отключен. Публичного ip нет, можно достучаться только через балансировщик
     subnet_id = yandex_vpc_subnet.terraform-network-central1-a.id
+    nat       = true # public ip
   }
 
   metadata = {
@@ -28,7 +27,6 @@ resource "yandex_compute_instance" "terraform-vm-ru-central-a" {
 resource "yandex_compute_instance" "terraform-vm-ru-central-b" {
   name = "terraform-vm-ru-central-b"
   zone = yandex_vpc_subnet.terraform-network-central1-b.zone
-  # service_account_id = yandex_iam_service_account.registry-sa.id
 
   resources {
     cores  = 2

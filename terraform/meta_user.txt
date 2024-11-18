@@ -1,7 +1,7 @@
 #cloud-config
 ssh_pwauth: no
 users:
-  - name: vszholobov
+  - name: terraform
     sudo: ALL=(ALL) NOPASSWD:ALL
     shell: /bin/bash
     ssh_authorized_keys:

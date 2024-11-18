@@ -20,6 +20,9 @@
 ### Initialization with specified S3 keys
 ```terraform init -backend-config="access_key=$ACCESS_KEY" -backend-config="secret_key=$SECRET_KEY"```
 
+### Generating ssh-key with specified user
+```ssh-keygen -t ed25519 -f oslogin-ssh -C terraform```
+
 ### Packer image build
 ```packer build -var 'folder_id=b1gnu9b6p56oc5bvj3ji' packer.json```
 
