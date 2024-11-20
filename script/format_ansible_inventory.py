@@ -17,6 +17,7 @@ def main():
 
     # Генерация конфигурационного файла
     template = f"""
+
 [inventory]
 enable_plugins=ini
 
@@ -26,11 +27,6 @@ ansible_user=terraform
 
 [web_servers]
 """ + "\n".join([f"{server['name']} ansible_host={server['ip']}" for server in servers])
-
-    # Сохранение в файл
-    output_file = "inventory.ini"
-    with open(output_file, "w") as f:
-        f.write(template.strip())
 
     print(template.strip() + "\n")
 
