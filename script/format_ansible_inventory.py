@@ -17,14 +17,14 @@ def main():
 
     # Генерация конфигурационного файла
     template = f"""
-"[inventory]
+[inventory]
 enable_plugins=ini
 
 [web_servers:vars]
 ansible_connection=ssh
 ansible_user=terraform
 
-[web_servers]"
+[web_servers]
 """ + "\n".join([f"{server['name']} ansible_host={server['ip']}" for server in servers])
 
     # Сохранение в файл
