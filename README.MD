@@ -27,12 +27,11 @@
 ### Packer image build
 ```packer build -var 'folder_id=b1gnu9b6p56oc5bvj3ji' packer.json```
 
-### Parsing terraform output
+### Local ansible launch
 ```
 source local.bash
-terraform show -json | python3 script/parse_terraform_show.py | python3 script/format_ansible_inventory.py
-echo $ANSIBLE_SSH_PRIVATE_KEY > ansible_key
-ansible-playbook -i inventory.ini ansible/playbook.yaml
+terraform show -json | python3 script/parse_terraform_show.py | python3 script/format_ansible_inventory.py inventory.ini terraform
+ansible-playbook -i inventory.ini ansible/playbook.yaml --private-key oslogin-ssh/oslogin-ssh
 ```
 
 ### Show current cloud state

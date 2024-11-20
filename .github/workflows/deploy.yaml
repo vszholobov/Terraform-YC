@@ -14,6 +14,8 @@ env:
   SECRET_KEY: ${{ secrets.SECRET_KEY }} # s3 key
   TF_VAR_ssh_key: ${{ secrets.TF_VAR_SSH_KEY }} # terraform public key env
   ANSIBLE_HOST_KEY_CHECKING: False # disable ssh connection approve
+  ANSIBLE_INVENTORY_FILE_NAME: inventory.ini # ansible inventory file name
+  ANSIBLE_SSH_USERNAME: terraform
 
 jobs:
   build-infra:
@@ -38,32 +40,13 @@ jobs:
         working-directory: ./
       - name: Create ansible inventory
         run: |
-          terraform show -json | python3 script/parse_terraform_show.py | python3 script/format_ansible_inventory.py
-#      - name: Set inventory var
-#        id: ansible_inventory
-#        run: echo "ANSIBLE_INVENTORY=$(cat inventory.ini)" >> $GITHUB_ENV
+          terraform show -json | python3 script/parse_terraform_show.py | python3 script/format_ansible_inventory.py ${{ env.ANSIBLE_INVENTORY_FILE_NAME }} ${{ env.ANSIBLE_SSH_USERNAME }}
       - name: Run Ansible playbook
         uses: dawidd6/action-ansible-playbook@v2.5.0
         with:
           directory: ./
           playbook: ansible/playbook.yaml
-#          inventory: ${{ env.ANSIBLE_INVENTORY }}
-#          inventory: ${{ steps.ansible_inventory.outputs.inventory }}
-#          inventory: |
-#            [inventory]
-#            enable_plugins=ini
-#            [web_servers:vars]
-#            ansible_connection=ssh
-#            ansible_user=terraform
-#            [web_servers]
-#            server1 ansible_host=89.169.150.105
-#            server2 ansible_host=89.169.161.227
           key: ${{ secrets.ANSIBLE_PRIVATE_KEY }}
           options:
             --verbose
             --inventory inventory.ini
-
-#      - name: Terraform Destroy
-#        id: destroy
-#        run: terraform destroy --auto-approve
-#        working-directory: ./

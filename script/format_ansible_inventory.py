@@ -1,6 +1,8 @@
 import sys
 
-def main():
+
+def main(inventory_file_name, ssh_user_name):
+    print(f"inventory_file_name={inventory_file_name}\n")
     servers = []
     name = "server"
     cnt = 1
@@ -13,27 +15,27 @@ def main():
             servers.append({"name": name + str(cnt), "ip": line})
             cnt += 1
         except ValueError:
-            print("Некорректный ввод. Используйте формат 'server_name ip_address'.")
+            print("Invalid input")
 
-    # Генерация конфигурационного файла
-    template = f"""
+    web_servers = "\n".join([f"{server['name']} ansible_host={server['ip']}" for server in servers])
+    inventory = f"""
 [inventory]
 enable_plugins=ini
 
 [web_servers:vars]
 ansible_connection=ssh
-ansible_user=terraform
+ansible_user={ssh_user_name}
 
 [web_servers]
-""" + "\n".join([f"{server['name']} ansible_host={server['ip']}" for server in servers])
+{web_servers}
+"""
+    # debug output
+    print(f"format_ansible_inventory.py:\n{inventory.strip()}\n")
 
-    # Сохранение в файл
-    output_file = "inventory.ini"
-    with open(output_file, "w") as f:
-        f.write(template.strip())
+    # result config
+    with open(inventory_file_name, "w") as f:
+        f.write(inventory.strip())
 
-    print(template.strip() + "\n")
 
 if __name__ == "__main__":
-    main()
-
+    main(sys.argv[1], sys.argv[2])
