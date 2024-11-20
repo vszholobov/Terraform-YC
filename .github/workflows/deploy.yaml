@@ -41,13 +41,14 @@ jobs:
           terraform show -json | python3 script/parse_terraform_show.py | python3 script/format_ansible_inventory.py
       - name: Set inventory var
         id: ansible_inventory
-        run: echo "inventory=$(cat inventory.ini)" >> $GITHUB_OUTPUT
+        run: echo "ANSIBLE_INVENTORY=$(cat inventory.ini)" >> $GITHUB_ENV
       - name: Run Ansible playbook
         uses: dawidd6/action-ansible-playbook@v2.5.0
         with:
           directory: ./
           playbook: ansible/playbook.yaml
-          inventory: ${{ steps.ansible_inventory.outputs.inventory }}
+          inventory: ${{ env.ANSIBLE_INVENTORY }}
+#          inventory: ${{ steps.ansible_inventory.outputs.inventory }}
 #          inventory: |
 #            [inventory]
 #            enable_plugins=ini
