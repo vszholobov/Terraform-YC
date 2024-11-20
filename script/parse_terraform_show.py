@@ -23,7 +23,8 @@ def main():
         json_input = sys.stdin.read()
         data = json.loads(json_input)
     except json.JSONDecodeError as e:
-        print(f"Invalid JSON: {e}", file=sys.stderr)
+        print(json_input, file=sys.stderr)
+        print(f"\nInvalid JSON: {e}", file=sys.stderr)
         sys.exit(1)
 
     # Извлечение NAT IP адресов
