@@ -37,16 +37,17 @@ jobs:
         run: terraform apply --auto-approve
         working-directory: ./
       - name: Create ansible inventory
-        run: |
-          terraform show -json | python3 script/parse_terraform_show.py | python3 script/format_ansible_inventory.py
+        id: ansible_inventory
+        run: echo "::set-output name=inventory::$(terraform show -json | python3 script/parse_terraform_show.py | python3 script/format_ansible_inventory.py)"
+#        run: |
+#          terraform show -json | python3 script/parse_terraform_show.py | python3 script/format_ansible_inventory.py
       - name: Run Ansible playbook
         uses: dawidd6/action-ansible-playbook@v2.5.0
         with:
           directory: ./
           playbook: ansible/playbook.yaml
-          inventory: ./inventory.ini # generated in previous step
+          inventory: ${{ steps.ansible_inventory.outputs.inventory }}
           key: ${{ secrets.ANSIBLE_PRIVATE_KEY }}
-#          inventory: ${{ secrets.ansible_inventory }} # the ansible inventory to use, stored as "ansible_inventory" in the GitHub secrets
 
 #      - name: Terraform Destroy
 #        id: destroy

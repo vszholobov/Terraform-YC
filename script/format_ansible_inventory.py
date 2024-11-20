@@ -30,7 +30,6 @@ ansible_user=terraform
         f.write(template.strip())
 
     print(template.strip() + "\n")
-    print(f"Файл сгенерирован и сохранен в {output_file}.")
 
 if __name__ == "__main__":
     main()
