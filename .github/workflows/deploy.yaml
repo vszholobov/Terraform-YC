@@ -23,7 +23,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
       - name: Terraform Init
         id: init
         run: terraform init -backend-config="access_key=$ACCESS_KEY" -backend-config="secret_key=$SECRET_KEY"
@@ -44,8 +44,8 @@ jobs:
         with:
           directory: ./
           playbook: ansible/playbook.yaml
-          key: ${{ secrets.ANSIBLE_PRIVATE_KEY }}
           inventory: ./inventory.ini # generated in previous step
+          key: ${{ secrets.ANSIBLE_PRIVATE_KEY }}
 #          inventory: ${{ secrets.ansible_inventory }} # the ansible inventory to use, stored as "ansible_inventory" in the GitHub secrets
 
 #      - name: Terraform Destroy
