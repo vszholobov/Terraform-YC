@@ -17,7 +17,7 @@ def main():
 
     # Генерация конфигурационного файла
     template = f"""
-123
+
 [inventory]
 enable_plugins=ini
 
