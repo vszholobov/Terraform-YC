@@ -2,4 +2,5 @@
 .terraform
 .terraform.lock.hcl
 terraform-state
-oslogin-ssh
+oslogin-ssh*
+inventory.ini

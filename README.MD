@@ -27,6 +27,17 @@
 ### Packer image build
 ```packer build -var 'folder_id=b1gnu9b6p56oc5bvj3ji' packer.json```
 
+### Parsing terraform output
+```
+source local.bash
+terraform show -json | python3 script/parse_terraform_show.py | python3 script/format_ansible_inventory.py
+echo $ANSIBLE_SSH_PRIVATE_KEY > ansible_key
+ansible-playbook -i inventory.ini ansible/playbook.yaml
+```
+
+### Show current cloud state
+```terraform show -json```
+
 ### Getting service account key
 ```yc iam key create --service-account-id <account_id> --folder-name <folder_name> --output <...-key.json>```
 
