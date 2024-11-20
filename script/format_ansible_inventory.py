@@ -17,6 +17,9 @@ def main():
 
     # Генерация конфигурационного файла
     template = f"""
+[inventory]
+enable_plugins=ini
+
 [web_servers:vars]
 ansible_connection=ssh
 ansible_user=terraform
