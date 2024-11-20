@@ -19,7 +19,6 @@ def main():
     template = f"""
 [web_servers:vars]
 ansible_connection=ssh
-ansible_ssh_private_key_file=./oslogin-ssh
 ansible_user=terraform
 
 [web_servers]
