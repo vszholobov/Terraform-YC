@@ -1,5 +1,5 @@
 resource "yandex_compute_instance" "terraform-vm-ru-central-a" {
-  name = "terraform-vm-ru-central-a"
+  name = "terraform-vm-ru-central-c"
   zone = yandex_vpc_subnet.terraform-network-central1-a.zone
 
   resources {
@@ -25,7 +25,7 @@ resource "yandex_compute_instance" "terraform-vm-ru-central-a" {
 }
 
 resource "yandex_compute_instance" "terraform-vm-ru-central-b" {
-  name = "terraform-vm-ru-central-b"
+  name = "terraform-vm-ru-central-d"
   zone = yandex_vpc_subnet.terraform-network-central1-b.zone
 
   resources {
